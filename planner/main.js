@@ -21,10 +21,17 @@ const generateTasks = (i) => {
   return tasks
 }
 
-  let workers = []
+  let workers = [
+
+    { url: 'http://worker:8080', id: '0' },
+    { url: 'http://worker1:8081', id: '1' },
+
+  ]
 
 
 const app = express()
+app.get('/', (req, res) => {
+
 app.use(express.json())
 app.use(
   express.urlencoded({
@@ -38,8 +45,10 @@ app.get('/', (req, res) => {
 
 app.post('/register', (req, res) => {
   const { url, id } = req.body
+  const { url, id, add, mul } = req.body
   console.log(`Register: adding ${url} worker: ${id}`)
-  workers.push({ url, id, culpabilities })
+  workers.push({ url, id })
+  workers.push({ url, id, add, mul })
   res.send('ok')
 })
 

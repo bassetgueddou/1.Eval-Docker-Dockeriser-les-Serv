@@ -15,17 +15,24 @@ const app = express()
 const port = process.env.PORT || 8080
 const ADDRESS =
   process.env.ADDRESS !== undefined
-    ? process.env.ADDRESS
-    : 'http://localhost:' + port
+  : 'localhost' + port
+  : 'localhost:' + port
 const randInt = (min, max) => Math.floor(Math.random() * (max - min)) + min
 const register = () =>
-  fetch(PLANNER + '/register', {
+fetch(PLANNER + '/register', {
+const register = () =>{
+    const request = fetch(`${PLANNER}/register`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ url: ADDRESS, id }),
+    body: JSON.stringify({ url: 'worker', id, mult:process.env.MULT }),
+    body: JSON.stringify({
+      url : `${ADDRESS}:${port}`, 
+      id : id,
+      add : ADD,
+      mul : MULT 
   })
 let mult = false
 let add = false
